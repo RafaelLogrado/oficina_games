@@ -1,0 +1,132 @@
+### Teste da Rota Raíz
+GET http://localhost:3000/
+Content-Type: application/json
+
+###
+
+### 1. Cadastrar Cliente 
+POST http://localhost:3000/cliente
+Content-Type: application/json
+
+{
+  "nome": "Carlos",
+  "email": "carlos@gmail.com",
+  "senha": "abc",
+  "cpf": "12345678901",
+  "telefone": "48996054892"
+}
+
+###
+
+### 1.1. Realizar login (Carlos)
+# @name loginReq
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "rafael@gmail.com",
+  "senha": "cba"
+}
+
+###
+
+### 2. Listar Clientes
+GET http://localhost:3000/clientes
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+###
+
+### 3. Consultar cliente
+GET http://localhost:3000/cliente/1
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+###
+
+### 4. Atualizar cliente
+PUT http://localhost:3000/cliente/1
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+  "nome": "Rafael",
+  "email": "rafael@gmail.com",
+  "senha": "cba",
+  "cpf": "12345678901",
+  "telefone": "48996054892"
+}
+
+###
+
+### 5. Apagar cliente
+DELETE http://localhost:3000/cliente/2
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+##################################
+
+### Console
+
+### 1. Cadastrar Console
+POST http://localhost:3000/console
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+  "codCliente": "1",
+  "modelo": "PlayStation 5",
+  "marca": "Sony",
+  "numSerie": "123"
+}
+
+###
+
+### 2. Listar consoles
+GET http://localhost:3000/consoles
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+### 3. Consultar console
+GET http://localhost:3000/console/1
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+####################################
+
+### Agendamentos
+
+### 1. Cadastrar Agendamento
+POST http://localhost:3000/agendamento
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+  "codCliente": "1",
+  "codConsole": "1",
+  "data": "2026-11-10",
+  "hora": "14:30:00",
+  "tipoServico": "Limpeza e troca de pasta térmica"
+}
+
+###
+
+### 2. Atualizar agendamento
+PUT http://localhost:3000/agendamento/1
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
+
+{
+  "codCliente": "1",
+  "codConsole": "1",
+  "data": "2026-11-25",
+  "hora": "16:30:00",
+  "tipoServico": "Limpeza e troca de pasta térmica"
+}
+
+###
+
+### 3. Listar agendamentos
+GET http://localhost:3000/agendamentos
+Authorization: {{loginReq.response.body.token}}
+Content-Type: application/json
